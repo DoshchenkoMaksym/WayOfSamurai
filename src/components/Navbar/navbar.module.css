@@ -1,12 +1,15 @@
 .nav {
-    grid-area: n;
-    background-color: red;
-  }
+  padding: 10px;
+  grid-area: n;
+  background-color: red;
+}
 
-.item {
-      color: white;
-  }
+.friendsBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 5px;
+}
 
-  .item.active {
-    color:aquamarine
-  }
+.navSettings {
+  margin-top: 20px;
+}

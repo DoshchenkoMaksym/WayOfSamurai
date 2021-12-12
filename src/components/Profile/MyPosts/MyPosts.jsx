@@ -1,12 +1,16 @@
-import p from './MyPosts.module.css'
+
+import style from './MyPosts.module.css'
 import Post from './Post/Post';
-const MyPosts = () => {
+
+
+const MyPosts = (props) => {
+    let messageForRender = props.posts.postsArr.map(post => <Post message={post.message} likes={post.likes}/>)
     return (
-        <div className={p.posts}>
+        <div className={style.posts}>
              My post
             <div>New Post</div>
-           <Post message='Hello world' likes='15'/>
-           <Post message='Hi, my name is Vova'likes='20'/>
+            {messageForRender}
+
            
         </div>
 

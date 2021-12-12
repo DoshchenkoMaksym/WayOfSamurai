@@ -1,16 +1,39 @@
 import MyPosts from './MyPosts/MyPosts';
-import p from './profile.module.css';
-const Profile = () => {
-    return (
-        <div className={p.content}>
-           
-            <div>
-                <img className="content__img" src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg" alt="" />
-            </div>
-            <div>https://thumbs.dreamstime.com/z/very-cute-female-orangutan-portrait-female-orangutan-portrait-123378951.jpg</div>
-            <MyPosts />
-        </div>
+import style from './profile.module.css';
+import React from 'react';
+
+
+
+
+const Profile = (props) => {
+    let newPostElem = React.createRef();
+
+    function addPostToState() {
+        props.addPost();
+    };
+    function updateTextInState() {
         
+        let text = newPostElem.current.value;
+        props.newPostText(text);
+    }
+    return (
+        <div className={style.content}>
+
+            <div>
+                <img className={style.content__image} src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg" alt="" />
+            </div>
+            <div className={style.content__info}>
+                <div>Hello world</div>
+                <div>
+                    <textarea className="content__textarea" ref={newPostElem} value={props.state.textInArea} onChange={updateTextInState} />
+                </div>
+
+                <div>
+                    <button onClick={addPostToState}>Add post</button>
+                </div>
+            </div>
+            <MyPosts posts={props.state} />
+        </div>
     )
 }
 

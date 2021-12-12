@@ -1,23 +1,15 @@
-import { NavLink } from 'react-router-dom';
-import classes from './navbar.module.css';
 
-const Navbar = () => {
+import style from './navbar.module.css';
+import NavbarItem from './NavbarItem/NavbarItem';
+import FriendsItem from './NavbarItem/FriendsItems/FriendsItem';
+const Navbar = (props) => {
+    let navData = props.state.navPages.map(item => <NavbarItem title={item.title} />);
+    let navFriends = props.state.friendsPage.users.map(item => <FriendsItem name={item.name} photo={item.photo} />);
     return (
-        <nav className={classes.nav}>
-            <div className={classes.item}>
-                <NavLink to="/profile">Profile</NavLink>
-            </div>
-            <div  className={`${classes.item} ${classes.active}`}>
-                <NavLink to="/dialogs">Messages</NavLink>
-            </div>
-            <div  className={classes.item}>
-                <NavLink to='/news'>News</NavLink>
-            </div>
-            <div  className={classes.item}>
-                <NavLink to='/music'>Music</NavLink>
-            </div>
-            <div  className={classes.item}>
-                <NavLink to='/settings'>Settings</NavLink>
+        <nav className={style.nav}>
+            {navData}
+            <div className={style.friendsBox}>
+                {navFriends}
             </div>
         </nav>
     )

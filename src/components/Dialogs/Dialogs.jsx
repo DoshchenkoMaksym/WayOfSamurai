@@ -1,31 +1,46 @@
 import style from './Dialogs.module.css'
-import { NavLink } from 'react-router-dom';
+import UserItem from './Users/UserItem';
+import React from 'react';
+import Message from './Messages/MessageItem';
 
-const DialogItem = (props) => {
-    return (
-        <li className={style.dialogs_list_item}><NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink></li>
-    )
-}
-const Dialogs = () => {
+const Dialogs = (props) => {
+    
+    let newMessage = React.createRef();
 
+    function sendMessage() {
+        props.addDialogItem()
+    };
+
+    function updateText() {
+        let text = newMessage.current.value;
+        props.newDialogsText(text)
+    }
+
+    let users = props.state.dialogsData
+        .map(item => <UserItem name={item.name} id={item.id} />);
+
+    let messages = props.state.messages
+        .map(item => <Message message={item.message} />)
     return (
 
         <div className={style.dialogs_wrapper}>
             <div className={style.dialogs}>
                 <ul className={style.dialogs_list}>
-                    <DialogItem name="Ivan" id="1"/>
-                    <li className={style.dialogs_list_item}><NavLink to="/dialogs/2">Petr</NavLink></li>
-                    <li className={style.dialogs_list_item}><NavLink to="/dialogs/3">Seregya</NavLink></li>
-                    <li className={style.dialogs_list_item}><NavLink to="/dialogs/4">Nik</NavLink></li>
-                    <li className={style.dialogs_list_item}><NavLink to="/dialogs/5">Jhon</NavLink></li>
-                    <li className={style.dialogs_list_item}><NavLink to="/dialogs/6">Katya</NavLink></li>
+                    {users}
                 </ul>
             </div>
             <div className={style.messages_wrapper}>
-                <div className={style.message}>Hi</div>
-                <div className={style.message}>How is your it-kamasutra</div>
-                <div className={style.message}>yo</div>
+                <div className={style.message}>
+                    {messages}
+                </div>
+                <div>
+                    <textarea ref={newMessage} value={props.state.textInArea} onChange={updateText}></textarea>
+                </div>
+                <div>
+                    <button onClick={sendMessage}>Send Message</button>
+                </div>
             </div>
+
         </div>
 
     )

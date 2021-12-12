@@ -4,3 +4,6 @@
   .item {
       color: yellow;
   }
+.item__photo {
+    border-radius: 50%;
+}
