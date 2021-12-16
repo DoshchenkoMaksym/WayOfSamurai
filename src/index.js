@@ -9,7 +9,8 @@ import App from './App'
 let rerenderEntireTree = (state) => {
     ReactDOM.render(
       <React.StrictMode>
-        <App state={state} addPost={store.addPost.bind(store)} newPostText={store.newPostText.bind(store)} addDialogItem={store.addDialogItem.bind(store)} newDialogsText={store.newDialogsText.bind(store)}/>
+        <App state={state} 
+            dispatch={store.dispatch.bind(store)}/>
       </React.StrictMode>,
       document.getElementById('root')
     );

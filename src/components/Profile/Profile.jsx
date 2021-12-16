@@ -9,12 +9,12 @@ const Profile = (props) => {
     let newPostElem = React.createRef();
 
     function addPostToState() {
-        props.addPost();
+        props.dispatch({type: 'ADD-POST'})
     };
     function updateTextInState() {
         
         let text = newPostElem.current.value;
-        props.newPostText(text);
+        props.dispatch({type: 'NEW-POST-TEXT', newText: text});
     }
     return (
         <div className={style.content}>

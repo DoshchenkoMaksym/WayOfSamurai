@@ -1,3 +1,7 @@
+const ADD_POST = 'ADD-POST';
+const NEW_POST_TEXT = 'NEW-POST-TEXT';
+const ADD_DIALOG_ITEM = 'ADD-DIALOG-ITEM';
+const NEW_DIALOG_TEXT = 'NEW-DIALOG-TEXT';
 let store = {
     _state: {
         profilePage: {
@@ -142,9 +146,50 @@ let store = {
         this._state.dialogsPage.textInArea = newText;
         this._rerenderEntireTree(this._state);
     },
+
+    dispatch(action) {
+        
+        if (action.type === ADD_POST) {
+            let newPost = {
+                id: 1,
+                message: this._state.profilePage.textInArea,
+                likes: 0
+            }
+            this._state.profilePage.postsArr.push(newPost);
+            this.newPostText('');
+            this._rerenderEntireTree(this._state);
+        } else if (action.type === NEW_POST_TEXT) {
+            this._state.profilePage.textInArea = action.newText;
+            this._rerenderEntireTree(this._state);
+        } else if (action.type === ADD_DIALOG_ITEM) {
+            let newDialogItem = {
+                message: this._state.dialogsPage.textInArea
+            };
+            this._state.dialogsPage.messages.push(newDialogItem);
+            this.newDialogsText('');
+            this._rerenderEntireTree(this._state);
+        } else if (action.type === NEW_DIALOG_TEXT) {
+            this._state.dialogsPage.textInArea = action.newText;
+            this._rerenderEntireTree(this._state);
+        }
+    }
 }
 
 
+export const returnAddPostType = () => {
+    return {type: ADD_POST}
+};
 
+export const newPostTextType = (text) => {
+    return {type: NEW_POST_TEXT, newText: text}
+};
+
+export const addDialogItemType = () => {
+    return {type: ADD_DIALOG_ITEM}
+};
+
+export const newDialogTextType = (text) => {
+    return {type: NEW_DIALOG_TEXT, newText: text}
+};
 
 export default store;
